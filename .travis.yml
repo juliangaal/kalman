@@ -87,19 +87,19 @@ install:
   - cd xtl && mkdir build && cd build
   - cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DCMAKE_CXX_COMPILER=$COMPILER ..
   - sudo make install 
-  - cd $BASE/kalmancpp/QuantStack 
+  - cd $BASE/kalman/QuantStack
   - git clone https://github.com/QuantStack/xtensor.git
   - cd xtensor && mkdir build && cd build
   - cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DCMAKE_CXX_COMPILER=$COMPILER ..
   - sudo make install 
-  - cd $BASE/kalmancpp/QuantStack
+  - cd $BASE/kalman/QuantStack
   - git clone https://github.com/QuantStack/xtensor-blas.git
   - cd xtensor-blas && mkdir build && cd build
   - cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DCMAKE_CXX_COMPILER=$COMPILER ..
   - sudo make install 
-  - cd $BASE/kalmancpp/
+  - cd $BASE/kalman/
   - rm -rf QuantStack
-  - cd $BASE/kalmancpp/
+  - cd $BASE/kalman/
 
 # Build steps
 script:
