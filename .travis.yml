@@ -100,7 +100,9 @@ install:
   - cd $BASE/kalman/
   - rm -rf QuantStack
   - cd $BASE/kalman/
+
+# Build steps
+script:
   - mkdir build && cd build
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
   - make -j
-
