@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/juliangaal/kalman.svg?branch=master)](https://travis-ci.org/juliangaal/kalman)
 
-This repo is based on example of Kalman2d filtering from [this](https://github.com/balzer82/Kalman) great repo.
+This repo is based on examples of Kalman2d filtering from [this](https://github.com/balzer82/Kalman) great repo.
 
 Currently includes:
 * 2d Kalman2d example: Python prototype, C++
