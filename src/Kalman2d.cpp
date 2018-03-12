@@ -2,7 +2,7 @@
 // Created by Julian on 11.03.18.
 //
 
-#include "../include/Kalman2d.hpp"
+#include "Kalman2d.hpp"
 
 void Kalman2d::generateData() noexcept
 {
@@ -44,4 +44,14 @@ void Kalman2d::init(const double& dt)
     R  = xt::diag(xt::xarray<double>({ra, ra}));
 
     I = xt::eye<double>(4);
+}
+
+void Kalman2d::run() noexcept
+{
+    for (int n = 0; n < 200; n++)
+    {
+        Z = { measurements(0, n), measurements(1, n)};
+        Z.reshape({2, 1});
+        Kalman::run();
+    }
 }

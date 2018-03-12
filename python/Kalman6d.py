@@ -25,21 +25,24 @@ def init():
 
     # initial state vector
     x = np.matrix([[0.0, 0.0, 1.0, 10.0, 0.0, 0.0, 0.0, 0.0, -9.81]]).T
+    print("X: ", x)
 
     # initial covariance matrix P
     P = np.eye(9) * sigma
+    print("P: ", P)
 
     # Dynamikmatrix A
     dt = 0.01
-    A = np.matrix([[1.0, 0.0, 0.0,  dt, 0.0, 0.0, 1/2*dt**2, 0.0, 0.0],
-                   [0.0, 1.0, 0.0, 0.0,  dt, 0.0, 0.0, 1/2*dt**2, 0.0],
-                   [0.0, 0.0, 1.0, 0.0, 0.0,  dt, 0.0, 0.0, 1/2*dt**2],
+    A = np.matrix([[1.0, 0.0, 0.0,  dt, 0.0, 0.0, 0.5*dt**2, 0.0, 0.0],
+                   [0.0, 1.0, 0.0, 0.0,  dt, 0.0, 0.0, 0.5*dt**2, 0.0],
+                   [0.0, 0.0, 1.0, 0.0, 0.0,  dt, 0.0, 0.0, 0.5*dt**2],
                    [0.0, 0.0, 0.0, 1.0, 0.0, 0.0,  dt, 0.0, 0.0],
                    [0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,  dt, 0.0],
                    [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,  dt],
                    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
                    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0],
                    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]])
+    print("A: ", A)
 
     # print(A*x)
     B = np.matrix([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]).T
@@ -49,17 +52,21 @@ def init():
     sv = 0.1
     G  = np.matrix([[0.5*dt**2, 0.5*dt**2, 0.5*dt**2, dt, dt, dt, 1.0, 1.0, 1.0]]).T
     Q = G * G.T * sv**2
+    print("Q: ", Q)
 
     H = np.matrix([[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
                    [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
                    [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
+    print("H: ", H)
 
     # Measurement Noise Covariance
     ra = 1.0**2
     R = np.diag([ra, ra, ra])
+    print("R: ", R)
 
     # Identity Matrix
     I = np.eye(9)
+    print("I: ", I)
 
 def generateData():
     Hz = 100.0 # Frequency of Vision System
@@ -223,6 +230,6 @@ def plotGain():
 
 init()
 measurements = generateData()
-plot(measurements)
-filter(measurements)
-plot(measurements, result=True, file={'name': 'Kalman6d', 'save': True})
+# plot(measurements)
+# filter(measurements)
+# plot(measurements, result=True, file={'name': 'Kalman6d', 'save': True})

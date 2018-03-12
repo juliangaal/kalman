@@ -16,6 +16,7 @@ public:
 
     void init(const double& dt) final;
 
+    void run() noexcept final;
 private:
     void generateData() noexcept final;
 };
