@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # @Author: juliangaal
-# @Date:   2018-02-13 17:31:11
+# @Date:   2018-03-12 12:05:11
 # @Last Modified by:   juliangaal
 # @Last Modified time: 2018-02-24 09:25:00
-# Kalman 2d prototype 
+# Kalman 6d prototype 
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
@@ -90,9 +90,6 @@ def filter(measurements):
     # Check with which Covariance we should continue calculation
     S = H * P * H.T + R
     K = P * H.T * np.linalg.pinv(S)
-    print(S)
-    print(np.linalg.pinv(S))
-    print(K)
 
     Z = measurements[:,0].reshape(2,1)
     x = x + K * (Z - H * x)
@@ -107,7 +104,7 @@ def plot(measurements):
     print(measurements.shape)
     plt.step(range(len(measurements[0])),measurements[0,], label='$\dot x$')
     plt.step(range(len(measurements[1])),measurements[1,], label='$\dot y$')
-    plt.ylabel(r'Velocity $m/s$')
+    plt.ylabel('Velocity $m/s$')
     plt.title('Measurements')
     plt.legend(loc='best',prop={'size':18})
 
@@ -133,5 +130,5 @@ def plotGain():
 init()
 measurements = generateData()
 filter(measurements)
-# plot(measurements)
+plot(measurements)
 # plotResults()
