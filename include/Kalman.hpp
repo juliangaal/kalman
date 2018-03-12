@@ -18,17 +18,6 @@ using xt::linalg::dot;
 
 class Kalman
 {
-public:
-    Kalman() = default;
-
-    virtual ~Kalman() = default;
-
-    virtual void generateData() = 0;
-
-    virtual void init(const double& dt) = 0;
-
-    virtual void run() noexcept;
-
 protected:
     xt::xarray<double> x;
     xt::xarray<double> P;
@@ -43,7 +32,18 @@ protected:
     xt::xarray<double> measurements;
     xt::xarray<double> mx;
     xt::xarray<double> my;
+public:
+    Kalman() = default;
 
+    virtual ~Kalman() = default;
+
+    virtual void generateData() = 0;
+
+    virtual void init(const double& dt) = 0;
+
+    virtual void run() noexcept;
+
+    inline auto getX() const { return x; }
 };
 
 #endif //KALMAN_KALMAN_HPP

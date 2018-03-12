@@ -9,5 +9,8 @@ int main()
 {
     Kalman2d k2d;
     k2d.run();
+
+    std::cout << "Results in: \n" << k2d.getX() << std::endl;
+
     return 0;
 }

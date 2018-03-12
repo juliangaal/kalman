@@ -39,7 +39,7 @@ void Kalman6d::init(const double& dt)
          {0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
          {0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,}};
 
-    const double ra = pow(10.0, 2);
+    const double ra = pow(1.0, 2);
     R = xt::diag(xt::ones<double>({3, 1}) * ra);
 
     I = xt::eye<double>(9);
@@ -53,6 +53,7 @@ void Kalman6d::generateData()
     const int m = static_cast<int>(T/dt); // number of measurements
 
     double px = 0.0; // x Position Start
+    double py = 0.0;
     double pz= 1.0; // z Position Start
 
     double vx = 10.0; // m/s Velocity at the beginning
@@ -62,9 +63,11 @@ void Kalman6d::generateData()
     constexpr double d = 0.9; // Damping
 
 //    std::vector<double> Xr, Yr, Zr;
-    xt::xarray<double> Xr = xt::zeros<double>({1, m});
-    xt::xarray<double> Yr = xt::zeros<double>({1, m});
-    xt::xarray<double> Zr = xt::zeros<double>({1, m});
+    xt::xarray<double> Xr = xt::zeros<double>({m});
+    xt::xarray<double> Yr = xt::zeros<double>({m});
+    xt::xarray<double> Zr = xt::zeros<double>({m});
+
+    constexpr float sp = 0.1; // Sigma for position noise
 
     for (int i = 0; i < m; i++)
     {
@@ -90,15 +93,14 @@ void Kalman6d::generateData()
         }
 
         Xr(i) = px;
+        Yr(i) = py;
         Zr(i) = pz;
     }
-
-    constexpr float sp = 0.1; // Sigma for position noise
 
     xt::xarray<double> Xm = Xr + sp * (xt::random::randn<double>({m, }, -10, 10));
     xt::xarray<double> Ym = Yr + sp * (xt::random::randn<double>({m, }, -10, 10));
     xt::xarray<double> Zm = Zr + sp * (xt::random::randn<double>({m, }, -10, 10));
-    measurements = xt::stack(xt::xtuple(Xm, Ym, Zm), 0);
+    measurements = xt::stack(xt::xtuple(Xr, Yr, Zr), 0);
 }
 
 void Kalman6d::run() noexcept
@@ -117,7 +119,7 @@ void Kalman6d::run() noexcept
             hitGround = false;
         }
 
-        xt::xarray<double> Z = { measurements(0, n), measurements(1, n), measurements(2, n)};
+        Z = { measurements(0, n), measurements(1, n), measurements(2, n) };
         Z.reshape({3, 1});
         Kalman::run();
     }
