@@ -1,4 +1,4 @@
-# Kalman2d
+# Kalman
 
 [![Build Status](https://travis-ci.org/juliangaal/kalman.svg?branch=master)](https://travis-ci.org/juliangaal/kalman)
 
