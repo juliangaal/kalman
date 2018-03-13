@@ -27,11 +27,14 @@ protected:
     xt::xarray<double> R;
     xt::xarray<double> I;
 
-    xt::xarray<double> Z; // incoming measurments
+    xt::xarray<double> Z; // incoming measurments, set in child class
 
     xt::xarray<double> measurements;
     xt::xarray<double> mx;
     xt::xarray<double> my;
+
+    constexpr double pow2(double val) const;
+
 public:
     Kalman() = default;
 

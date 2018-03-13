@@ -39,7 +39,12 @@ void Kalman6d::init(const double& dt)
          {0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
          {0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,}};
 
-    const double ra = pow(1.0, 2);
+    // Old version
+    // const double ra = pow(1.0, 2);
+
+    // constexpr version
+    constexpr double ra = pow2(1.0);
+
     R = xt::diag(xt::ones<double>({3, 1}) * ra);
 
     I = xt::eye<double>(9);

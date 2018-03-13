@@ -4,6 +4,11 @@
 
 #include "Kalman.hpp"
 
+constexpr double Kalman::pow2(double val) const
+{
+    return val * val;
+}
+
 void Kalman::run() noexcept
 {
     x = dot(A, x);
