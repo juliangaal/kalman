@@ -18,4 +18,4 @@ This repo is based on examples of Kalman2d filtering from [this](https://github.
 * blas: `brew install openblas` / `sudo apt-get install libblas-dev`
 * Lapack `brew install lapack` / `sudo apt-get installliblapack-dev`
 
-Or use provided install script: [linux](https://raw.githubusercontent.com/juliangaal/kalman/master/install/linux.bash) | [mac]()https://raw.githubusercontent.com/juliangaal/kalman/master/install/mac.bash
+Or use provided install script: [linux](https://raw.githubusercontent.com/juliangaal/kalman/master/install/linux.bash) | [mac](https://raw.githubusercontent.com/juliangaal/kalman/master/install/mac.bash)
