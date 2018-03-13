@@ -3,6 +3,7 @@
 //
 
 #include "Kalman6d.hpp"
+#include "Helpers.hpp"
 
 Kalman6d::Kalman6d(double dt)
 {
@@ -19,7 +20,7 @@ void Kalman6d::init(const double& dt)
     P = xt::diag(xt::ones<double>({9, 1}));
     P *= sigma;
 
-    const double dtt = 0.5 * std::pow(dt, 2);
+    const double dtt = 0.5 * Helpers::pow2(dt);
     A = {{1.0, 0.0, 0.0,  dt, 0.0, 0.0, dtt, 0.0, 0.0},
          {0.0, 1.0, 0.0, 0.0,  dt, 0.0, 0.0, dtt, 0.0},
          {0.0, 0.0, 1.0, 0.0, 0.0,  dt, 0.0, 0.0, dtt},
@@ -30,16 +31,20 @@ void Kalman6d::init(const double& dt)
          {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0},
          {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0}};
 
-    xt::xarray<double> G = {0.5 * pow(dt, 2), 0.5 * pow(dt, 2), 0.5 * pow(dt, 2), dt, dt, dt, 1.0, 1.0, 1.0};
+    const double acc = Helpers::acc(dt);
+    xt::xarray<double> G = {acc, acc, acc, dt, dt, dt, 1.0, 1.0, 1.0};
     G.reshape({9, 1});
-    constexpr double sv = 1.0;
-    Q = G * xt::transpose(G) * std::pow(sv, 2);
+
+    constexpr double sv = Helpers::pow2(1.0);
+    Q = G * xt::transpose(G) * sv;
 
     H = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
          {0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
          {0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,}};
 
-    const double ra = pow(1.0, 2);
+    // constexpr version
+    constexpr double ra = Helpers::pow2(1.0);
+
     R = xt::diag(xt::ones<double>({3, 1}) * ra);
 
     I = xt::eye<double>(9);
@@ -48,7 +53,7 @@ void Kalman6d::init(const double& dt)
 void Kalman6d::generateData()
 {
     constexpr double Hz = 100.0; // Frequency of Vision System
-    const double dt = 1.0/Hz;;
+    const double dt = 1.0/Hz;
     constexpr double T = 1.0; // s measuremnt time
     const int m = static_cast<int>(T/dt); // number of measurements
 
@@ -121,6 +126,7 @@ void Kalman6d::run() noexcept
 
         Z = { measurements(0, n), measurements(1, n), measurements(2, n) };
         Z.reshape({3, 1});
+
         Kalman::run();
     }
 }
