@@ -10,6 +10,5 @@ int main()
     k6d.run();
 
     std::cout << "Results in: \n" << k6d.getX() << std::endl;
-
     return 0;
 }
