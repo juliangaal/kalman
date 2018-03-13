@@ -6,10 +6,10 @@ This repo is based on examples of Kalman2d filtering from [this](https://github.
 
 #### Currently includes:
 * 2d Kalman example: Python prototype, C++
-* 6d Kalman for ball trajectory (PicoFlexx)
+* 6d Kalman for ball trajectory
 
 #### WIP:
-* Kalman for PicoFlexx Ball Trajectory
+* Kalman for PicoFlexx Ball Trajectory (no synthetic data)
 
 #### Build this repo yourself:
 * [QuantStack/xtl](https://github.com/QuantStack/xtl)
