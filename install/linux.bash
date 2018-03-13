@@ -1,3 +1,5 @@
+#!/bin/bash
+
 INSTALL_PATH=/usr/local/include
 
 sudo apt-get install -y libblas-dev liblapack-dev
