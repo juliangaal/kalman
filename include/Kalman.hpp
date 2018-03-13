@@ -33,8 +33,6 @@ protected:
     xt::xarray<double> mx;
     xt::xarray<double> my;
 
-    constexpr double pow2(double val) const;
-
 public:
     Kalman() = default;
 
