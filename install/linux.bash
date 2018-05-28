@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INSTALL_PATH=/usr/local/include
+INSTALL_PATH=/usr/local/
 
 sudo apt-get install -y libblas-dev liblapack-dev
 mkdir ~/QuantStack && cd ~/QuantStack
