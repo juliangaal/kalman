@@ -16,6 +16,6 @@ This repo is based on examples of Kalman2d filtering from [this](https://github.
 * [QuantStack/xtensor](https://github.com/QuantStack/xtensor)
 * [QuantStack/xtensor-blas](https://github.com/QuantStack/xtensor-blas)
 * blas: `brew install openblas` / `sudo apt-get install libblas-dev`
-* Lapack `brew install lapack` / `sudo apt-get installliblapack-dev`
+* Lapack `brew install lapack` / `sudo apt-get install liblapack-dev`
 
 Or use provided install script: [linux](https://raw.githubusercontent.com/juliangaal/kalman/master/install/linux.bash) | [mac](https://raw.githubusercontent.com/juliangaal/kalman/master/install/mac.bash)
