@@ -64,20 +64,20 @@ matrix:
         - COMPILER=clang++-3.7
         - BASE=/home/travis/build/juliangaal
         - INSTALL_PATH=/usr/local/
-#    - os: osx
-#      osx_image: xcode8.3
-#      compiler: clang
-#      env:
-#        - COMPILER=/usr/bin/clang
-#        - BASE=/Users/travis/build/juliangaal
-#        - INSTALL_PATH=/usr/local/include
-#    - os: osx
-#      osx_image: xcode9.2
-#      compiler: clang
-#      env:
-#        - COMPILER=/usr/bin/clang
-#        - BASE=/Users/travis/build/juliangaal
-#        - INSTALL_PATH=/usr/local/include
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      env:
+        - COMPILER=/usr/bin/clang
+        - BASE=/Users/travis/build/juliangaal
+        - INSTALL_PATH=/usr/local/
+    - os: osx
+      osx_image: xcode9.2
+      compiler: clang
+      env:
+        - COMPILER=/usr/bin/clang
+        - BASE=/Users/travis/build/juliangaal
+        - INSTALL_PATH=/usr/local/
 
 # Install necessary dependencies
 install:
