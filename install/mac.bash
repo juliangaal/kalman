@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INSTALL_PATH=/usr/local/include
+INSTALL_PATH=/usr/local/
 
 brew update && sudo rm /usr/local/include/c++ && brew install lapack liblas openblas
 mkdir ~/QuantStack && cd ~/QuantStack
