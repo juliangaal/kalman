@@ -2,7 +2,7 @@
 
 INSTALL_PATH=/usr/local/
 
-brew update && sudo rm /usr/local/include/c++ && brew install lapack liblas openblas
+brew update && brew install lapack liblas openblas
 mkdir ~/QuantStack && cd ~/QuantStack
 git clone https://github.com/QuantStack/xtl.git
 cd xtl && mkdir build && cd build
