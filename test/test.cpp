@@ -2,9 +2,13 @@
 // Created by Julian on 13.03.18.
 //
 
+#include <iostream>
 #include "Kalman.hpp"
 #include "Kalman2d.hpp"
 #include "Kalman6d.hpp"
+
+using std::cout;
+using std::endl;
 
 bool result6dOk(xt::xarray<double>& x)
 {
@@ -25,15 +29,23 @@ int main()
     k2d.run();
     auto x2d = k2d.getX();
 
+    if (!result2dOk(x2d))
+    {
+        cout << "2d Kalman Filter error. Exiting" << endl;
+        return EXIT_FAILURE;
+    }
+    
     Kalman6d k6d;
     k6d.run();
     auto x6d = k6d.getX();
 
-    bool success = result6dOk(x6d) && result2dOk(x2d);
-
-    if (!success)
+    if (!result6dOk(x6d))
+    {
+        cout << "6d Kalman Filter error. Exiting" << endl;
         return EXIT_FAILURE;
+    }
+    
 
-    std::cout << "Test successful" << std::endl;
+    cout << "Test successful" << endl;
     return EXIT_SUCCESS;
 }
