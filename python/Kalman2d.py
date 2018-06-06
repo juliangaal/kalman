@@ -17,25 +17,18 @@ gain = []
 
 def init():
     global I, G, P, x, R, I, Q, A, H
-
     posX = posY = speedX = speedY = 0
     sigmaPosX = sigmaPosY = sigmaSpeedX = sigmaSpeedY = 1000
-
     # initial state vector
     x = np.matrix([[posX, posY, speedX, speedY]]).T
-
     # initial covariance matrix P
     P = np.diag([sigmaPosX, sigmaPosY, sigmaSpeedX, sigmaSpeedY])
-
     # Dynamikmatrix A
     dt = 0.1
     A = np.matrix([[1, 0, dt, 0],
                    [0, 1, 0, dt],
                    [0, 0, 1, 0 ],
                    [0, 0, 0, 1 ]])
-
-    # print(A*x)
-
     # Processkovarianzmatrix Q
     sv = 8.8
     G  = np.matrix([[0.5*dt**2],
@@ -43,14 +36,12 @@ def init():
                     [dt],
                     [dt]])
     Q = G * G.T * sv**2
-
     H = np.matrix([[0, 0, 1, 0],
                    [0, 0, 0, 1]])
 
     # Measurement Noise Covariance
     ra = 10.0**2
     R = np.diag([ra, ra])
-
     # Identity Matrix
     I = np.eye(4)
 
@@ -66,9 +57,6 @@ def generateData():
 
     measurements = np.vstack((mx,my))
 
-    # print('Standard Deviation of Acceleration Measurements=%.2f' % np.std(mx))
-    # print('You assumed %.2f in R.' % R[0,0])
-    # print(measurements.shape)
     return measurements
 
 def save(x, ):
@@ -78,8 +66,6 @@ def save(x, ):
 
 def filter(measurements):
     global I, G, P, x, R, I, Q, A, H
-    # for n in range(len(measurements[0])):
-    # print("M: ", measurements[n])
     ### Projection ###
     # Project new state
     x = A * x 
@@ -107,8 +93,6 @@ def plot(measurements):
     plt.ylabel('Velocity $m/s$')
     plt.title('Measurements')
     plt.legend(loc='best',prop={'size':18})
-
-
     plt.show()
 
 def plotResults():
@@ -131,4 +115,3 @@ init()
 measurements = generateData()
 filter(measurements)
 plot(measurements)
-# plotResults()

@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
-# @Author: juliangaal
-# @Date:   2018-02-13 17:31:11
-# @Last Modified by:   juliangaal
-# @Last Modified time: 2018-02-24 09:25:00
+
 # Kalman 2d prototype 
 import sys
 import matplotlib.pyplot as plt
@@ -198,12 +194,9 @@ def plot(measurements, result=False, file={'name': 'Kalman6d', 'save': False}):
 
 def plot2d(measurements):
     global posX, posZ
-
     Xm = measurements[0]
     Zm = measurements[2]
-
     fig = plt.figure(figsize=(16,9))
-
     plt.plot(posX, posZ, label='Kalman Filter Estimate')
     plt.scatter(Xm, Zm, label='Measurement', c='gray', s=30)
     # plt.plot(Xm, Zm, label='Real')
@@ -222,6 +215,4 @@ def plotGain():
 
 init()
 measurements = generateData()
-# plot(measurements)
 filter(measurements)
-# plot(measurements, result=True, file={'name': 'Kalman6d', 'save': True})
