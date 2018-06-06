@@ -44,6 +44,8 @@ public:
 
     virtual void run() noexcept;
 
+    virtual void prepNextMeasurement(int data_index) noexcept = 0;
+
     inline auto getX() const { return x; }
 
 protected:

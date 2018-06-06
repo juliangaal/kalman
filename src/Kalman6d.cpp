@@ -109,11 +109,17 @@ void Kalman6d::generateData()
     measurements = xt::stack(xt::xtuple(Xr, Yr, Zr), 0);
 }
 
+void Kalman6d::prepNextMeasurement(int data_index) noexcept
+{
+    Z = { measurements(0, data_index), measurements(1, data_index), measurements(2, data_index) };
+    Z.reshape({3, 1});
+}
+
 void Kalman6d::run() noexcept
 {
     bool hitGround = false;
 
-    for (int n = 0; n < 100; n++)
+    for (int data_index = 0; data_index < 100; data_index++)
     {
         if (x(2) < 0.01 && !hitGround)
         {
@@ -125,8 +131,7 @@ void Kalman6d::run() noexcept
             hitGround = false;
         }
 
-        Z = { measurements(0, n), measurements(1, n), measurements(2, n) };
-        Z.reshape({3, 1});
+        this->prepNextMeasurement(data_index);
 
         Kalman::run();
     }

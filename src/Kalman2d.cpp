@@ -46,12 +46,17 @@ void Kalman2d::init(const double& dt)
     I = xt::eye<double>(4);
 }
 
+void Kalman2d::prepNextMeasurement(int data_index) noexcept
+{
+    Z = { measurements(0, data_index), measurements(1, data_index)};
+    Z.reshape({2, 1});
+}
+
 void Kalman2d::run() noexcept
 {
-    for (int n = 0; n < 200; n++)
+    for (int data_index = 0; data_index < 200; data_index++)
     {
-        Z = { measurements(0, n), measurements(1, n)};
-        Z.reshape({2, 1});
+        this->prepNextMeasurement(data_index);
         Kalman::run();
     }
 }

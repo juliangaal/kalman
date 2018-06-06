@@ -17,6 +17,8 @@ public:
 
     void run() noexcept final;
 
+    void prepNextMeasurement(int data_index) noexcept final;
+
 private:
     void generateData() final;
 

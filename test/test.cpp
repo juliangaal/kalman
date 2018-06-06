@@ -46,6 +46,6 @@ int main()
     }
     
 
-    cout << "Test successful" << endl;
+    cout << "2d and 6d Kalman Filter Test successful" << endl;
     return EXIT_SUCCESS;
 }
