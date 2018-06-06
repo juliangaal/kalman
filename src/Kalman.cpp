@@ -4,6 +4,11 @@
 
 #include "Kalman.hpp"
 
+xarray<double> Kalman::operator*(xarray<double>& a, xarray<double>& b)
+{
+    return dot(a, b);
+}
+
 void Kalman::run() noexcept
 {
     this->predict();
@@ -12,20 +17,22 @@ void Kalman::run() noexcept
 
 void Kalman::predict() noexcept 
 {
-    x = dot(A, x);
+    x = A * x;
     predicted_state = x;
     
-    P = dot(dot(A, P), xt::transpose(A)) + Q;
+    P = dot((A * P), transpose(A)) + Q;
 }
 
 void Kalman::update() noexcept 
 {
-    auto S = dot(dot(H, P), xt::transpose(H)) + R;
+    auto S = dot((H * P), transpose(H)) + R;
 
-    auto K = dot(dot(P, xt::transpose(H)), xt::linalg::pinv(S));
+    xarray<double> temps = P * transpose(H);
+    xarray<double> K = dot(temps, pinv(S));
 
-    x = x + dot(K, (Z - dot(H, x)));
+    xarray<double> temp = Z - (H * x);
+    x = x + (K * temp);
     updated_state = x;
 
-    P = dot((I - dot(K, H)), P);
+    P = (I - (K * H)) * P;
 }

@@ -15,23 +15,27 @@
 using std::cout;
 using std::endl;
 using xt::linalg::dot;
+using xt::xarray;
+using xt::zeros;
+using xt::transpose;
+using xt::linalg::pinv;
 
 class Kalman
 {
 protected:
-    xt::xarray<double> x;
-    xt::xarray<double> P;
-    xt::xarray<double> A;
-    xt::xarray<double> Q;
-    xt::xarray<double> H;
-    xt::xarray<double> R;
-    xt::xarray<double> I;
+    xarray<double> x;
+    xarray<double> P;
+    xarray<double> A;
+    xarray<double> Q;
+    xarray<double> H;
+    xarray<double> R;
+    xarray<double> I;
 
-    xt::xarray<double> Z; // incoming measurments, set in child class
+    xarray<double> Z; // incoming measurments, set in child class
 
-    xt::xarray<double> measurements;
-    xt::xarray<double> mx;
-    xt::xarray<double> my;
+    xarray<double> measurements;
+    xarray<double> mx;
+    xarray<double> my;
 
 public:
     Kalman() = default;
@@ -49,9 +53,9 @@ public:
     inline auto getX() const { return x; }
 
 protected:
-    xt::xarray<double> predicted_state;
+    xarray<double> predicted_state;
 
-    xt::xarray<double> updated_state;
+    xarray<double> updated_state;
 
 private:
     void predict() noexcept;

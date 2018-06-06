@@ -69,9 +69,9 @@ void Kalman6d::generateData()
     constexpr double d = 0.9; // Damping
 
 //    std::vector<double> Xr, Yr, Zr;
-    xt::xarray<double> Xr = xt::zeros<double>({m});
-    xt::xarray<double> Yr = xt::zeros<double>({m});
-    xt::xarray<double> Zr = xt::zeros<double>({m});
+    xarray<double> Xr = zeros<double>({m});
+    xarray<double> Yr = zeros<double>({m});
+    xarray<double> Zr = zeros<double>({m});
 
     constexpr float sp = 0.1; // Sigma for position noise
 
@@ -103,9 +103,9 @@ void Kalman6d::generateData()
         Zr(i) = pz;
     }
 
-    xt::xarray<double> Xm = Xr + sp * (xt::random::randn<double>({m, }, -10, 10));
-    xt::xarray<double> Ym = Yr + sp * (xt::random::randn<double>({m, }, -10, 10));
-    xt::xarray<double> Zm = Zr + sp * (xt::random::randn<double>({m, }, -10, 10));
+    xarray<double> Xm = Xr + sp * (xt::random::randn<double>({m, }, -10, 10));
+    xarray<double> Ym = Yr + sp * (xt::random::randn<double>({m, }, -10, 10));
+    xarray<double> Zm = Zr + sp * (xt::random::randn<double>({m, }, -10, 10));
     measurements = xt::stack(xt::xtuple(Xr, Yr, Zr), 0);
 }
 
