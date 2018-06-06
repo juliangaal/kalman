@@ -45,6 +45,17 @@ public:
     virtual void run() noexcept;
 
     inline auto getX() const { return x; }
+
+protected:
+    xt::xarray<double> predicted_state;
+
+    xt::xarray<double> updated_state;
+
+private:
+    void predict() noexcept;
+
+    void update() noexcept;
+
 };
 
 #endif //KALMAN_KALMAN_HPP

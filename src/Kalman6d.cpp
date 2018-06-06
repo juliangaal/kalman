@@ -15,6 +15,7 @@ void Kalman6d::init(const double& dt)
 {
     x = {0.0, 0.0, 1.0, 10.0, 0.0, 0.0, 0.0, 0.0, -9.81};
     x.reshape({9, 1});
+    
 
     constexpr double sigma = 100.0;
     P = xt::diag(xt::ones<double>({9, 1}));
