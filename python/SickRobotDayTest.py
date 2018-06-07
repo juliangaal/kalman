@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+
 # -*- coding: utf-8 -*-
 # @Author: juliangaal
 # @Date:   2018-03-12 12:05:11
@@ -15,11 +17,13 @@ I = G = P = x = R = I = Q = A = H = []
 posX = []
 posY = []
 gain = []
+mx = []
+my = []
 
 def init():
     global I, G, P, x, R, I, Q, A, H
     posX = posY = speedX = speedY = 0
-    sigmaPosX = sigmaPosY = sigmaSpeedX = sigmaSpeedY = 1000
+    sigmaPosX = sigmaPosY = sigmaSpeedX = sigmaSpeedY = 1000000
     # initial state vector
     x = np.matrix([[posX, posY, speedX, speedY]]).T
     # initial covariance matrix P
@@ -37,8 +41,8 @@ def init():
                     [dt],
                     [dt]])
     Q = G * G.T * sv**2
-    H = np.matrix([[0, 0, 1, 0],
-                   [0, 0, 0, 1]])
+    H = np.matrix([[1, 0, 0, 0],
+                   [0, 1, 0, 0]])
 
     # Measurement Noise Covariance
     ra = 10.0**2
@@ -47,15 +51,22 @@ def init():
     I = np.eye(4)
 
 def generateData():
-    global R
+    global R, mx, my, x
     # Generate data
     m = 200 # Measurements
     vx= 20 # in X
     vy= 10 # in Y
 
-    mx = np.array(vx+np.random.randn(m))
-    my = np.array(vy+np.random.randn(m))
+    mx = np.zeros(360)
+    my = np.zeros(360)
 
+    radius = 10
+
+    for degree in range(0, 359):
+        mx[degree] = 0.0 + radius * np.cos(np.radians(degree)) + np.random.randint(-1,1);
+        my[degree] = 0.0 + radius * np.sin(np.radians(degree)) + np.random.randint(-1,1);
+
+    x = np.matrix([[mx[0], my[0], 0, 0]]).T
     measurements = np.vstack((mx,my))
 
     return measurements
@@ -69,28 +80,30 @@ def filter(measurements):
     global I, G, P, x, R, I, Q, A, H
     ### Projection ###
     # Project new state
-    x = A * x 
-    # Project new Covariance
-    P = A * P * A.T + Q
+    for i in range(1, 359):
+        x = A * x
+        # Project new Covariance
+        P = A * P * A.T + Q
 
-    ### Update ###
-    # Check with which Covariance we should continue calculation
-    S = H * P * H.T + R
-    K = P * H.T * np.linalg.pinv(S)
+        ### Update ###
+        # Check with which Covariance we should continue calculation
+        S = H * P * H.T + R
+        K = P * H.T * np.linalg.pinv(S)
 
-    Z = measurements[:,0].reshape(2,1)
-    x = x + K * (Z - H * x)
-    P = (I - K * H) * P
+        Z = measurements[:,i].reshape(2,1)
+        x = x + K * (Z - H * x)
+        P = (I - K * H) * P
 
-    # save state
-    save(x)
+        # save state
+        save(x)
 
 def plot(measurements):
         # Print data
     fig = plt.figure(figsize=(16,5))
     print(measurements.shape)
-    plt.step(range(len(measurements[0])),measurements[0,], label='$\dot x$')
-    plt.step(range(len(measurements[1])),measurements[1,], label='$\dot y$')
+    # plt.step(range(len(measurements[0])),measurements[0,], label='$\dot x$')
+    # plt.step(range(len(measurements[1])),measurements[1,], label='$\dot y$')
+    plt.plot(mx, my, label='measurements plus noise')
     plt.ylabel('Velocity $m/s$')
     plt.title('Measurements')
     plt.legend(loc='best',prop={'size':18})
@@ -116,3 +129,4 @@ init()
 measurements = generateData()
 filter(measurements)
 plot(measurements)
+plotResults()

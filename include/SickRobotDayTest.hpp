@@ -2,17 +2,17 @@
 // Created by Julian on 11.03.18.
 //
 
-#ifndef KALMAN_KALMAN2D_HPP
-#define KALMAN_KALMAN2D_HPP
+#ifndef SICK_ROBOT_DAY_TEST_HPP
+#define SICK_ROBOT_DAY_TEST_HPP
 
 #include "Kalman.hpp"
 
-class Kalman2d : public Kalman
+class SickRobotDayTest : public Kalman
 {
 public:
-    Kalman2d(double dt = 0.1);
+    SickRobotDayTest(double dt = 0.1);
 
-    ~Kalman2d() final = default;
+    ~SickRobotDayTest() final = default;
 
     void init(const double& dt) final;
 
@@ -25,4 +25,4 @@ private:
 };
 
 
-#endif //KALMAN_KALMAN2D_HPP
+#endif //SICK_ROBOT_DAY_TEST_HPP
