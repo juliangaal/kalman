@@ -2,13 +2,13 @@
 // Created by Julian on 12.03.18.
 //
 
-#include "Kalman6d.hpp"
+#include "SickRobotDayTest.hpp"
 
 int main()
 {
-    Kalman6d k6d;
-    k6d.run();
+    SickRobotDayTest sick;
+    sick.run();
 
-    std::cout << "Results in: \n" << k6d.getX() << std::endl;
+    std::cout << "Results in: \n" << sick.getX() << std::endl;
     return 0;
 }
