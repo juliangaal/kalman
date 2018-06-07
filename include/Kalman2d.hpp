@@ -6,7 +6,6 @@
 #define KALMAN_KALMAN2D_HPP
 
 #include "Kalman.hpp"
-#include <algorithm>
 
 class Kalman2d : public Kalman
 {
