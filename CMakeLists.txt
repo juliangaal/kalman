@@ -11,6 +11,16 @@ set(KALMAN6D_SOURCES
         src/Kalman.cpp
         src/Kalman6d.cpp)
 
+set(SICK_TEST_SOURCES
+        src/Kalman.cpp
+        src/SickRobotDayTest.cpp)
+
+set(TEST_SOURCES
+        src/Kalman.cpp
+        src/Kalman2d.cpp
+        src/Kalman6d.cpp
+        src/SickRobotDayTest.cpp)
+
 find_package(xtensor REQUIRED)
 find_package(xtensor-blas REQUIRED)
 find_package(BLAS REQUIRED)
@@ -25,5 +35,8 @@ target_link_libraries(Kalman2d ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES})
 add_executable(Kalman6d src/Run6d.cpp ${KALMAN6D_SOURCES})
 target_link_libraries(Kalman6d ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES})
 
-add_executable(Test test/test.cpp ${KALMAN6D_SOURCES} ${KALMAN2D_SOURCES})
+add_executable(SickRobotDayTest src/RunSickRobotDayTest.cpp ${SICK_TEST_SOURCES})
+target_link_libraries(SickRobotDayTest ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES})
+
+add_executable(Test test/test.cpp ${TEST_SOURCES})
 target_link_libraries(Test ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES})
