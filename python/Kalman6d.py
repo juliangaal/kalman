@@ -1,5 +1,6 @@
 
-# Kalman 2d prototype 
+# Kalman 6d prototype: free movement of ball
+
 import sys
 import matplotlib.pyplot as plt
 import numpy as np

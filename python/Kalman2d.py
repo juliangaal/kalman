@@ -3,7 +3,8 @@
 # @Date:   2018-03-12 12:05:11
 # @Last Modified by:   juliangaal
 # @Last Modified time: 2018-02-24 09:25:00
-# Kalman 6d prototype 
+# Kalman 2d prototype: linear movement
+
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
